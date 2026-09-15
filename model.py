@@ -260,8 +260,27 @@ def confusion_counts(y_true: np.ndarray, y_pred: np.ndarray) -> tuple:
 
     return tp, fp, tn, fn
 
-# Step 22 - metrics_from_counts (not yet solved)
-# TODO: implement
+# Step 22 - metrics_from_counts
+def metrics_from_counts(tp: int, fp: int, tn: int, fn: int) -> dict:
+    # TODO: Derive precision, recall, F1, and accuracy from confusion counts...
+    total = tp + fp + tn + fn
+    accuracy = (tp + tn) / total if total > 0 else 0.0
+
+    precision_denom = tp + fp
+    precision = tp / precision_denom if precision_denom > 0 else 0.0
+
+    recall_denom = tp + fn
+    recall = tp / recall_denom if recall_denom > 0 else 0.0
+
+    f1_denom = precision + recall
+    f1 = (2.0 * precision * recall) / f1_denom if f1_denom > 0 else 0.0
+
+    return {
+        "accuracy": float(accuracy),
+        "precision": float(precision),
+        "recall": float(recall),
+        "f1": float(f1),
+    }
 
 # Step 23 - tune_decision_threshold (not yet solved)
 # TODO: implement
