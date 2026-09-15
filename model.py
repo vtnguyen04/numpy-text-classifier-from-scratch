@@ -358,6 +358,20 @@ def predict_text(text: str, vocab: dict, idf: np.ndarray, w: np.ndarray, b: floa
 
     return labels[0]
 
-# Step 27 - collect_prediction_errors (not yet solved)
-# TODO: implement
+# Step 27 - collect_prediction_errors
+def collect_prediction_errors(texts: list, y_true: np.ndarray, y_pred: np.ndarray) -> dict:
+    # TODO: Gather raw messages that are false positives vs false negatives...
+    false_positives = []
+    false_negatives = []
+
+    for text, true_lbl, pred_lbl in zip(texts, y_true, y_pred):
+        if true_lbl == 0 and pred_lbl == 1:
+           false_positives.append(text)
+        elif true_lbl == 1 and pred_lbl == 0:
+           false_negatives.append(text)
+
+    return {
+        "false_positives": false_positives,
+        "false_negatives": false_negatives,
+    }
 
