@@ -180,8 +180,43 @@ def initialize_logistic_params(n_features: int) -> tuple:
     # TODO: Return a zero weight vector of shape (n_features,) and bias 0.0
     return np.zeros(n_features), 0.0
 
-# Step 18 - gradient_descent_step (not yet solved)
-# TODO: implement
+# Step 18 - gradient_descent_step
+import numpy as np
+
+def gradient_descent_step(
+    X: np.ndarray,
+    y: np.ndarray,
+    w: np.ndarray,
+    b: float,
+    lr: float,
+    l2_lambda: float,
+) -> tuple[np.ndarray, float, float]:
+    """Run one full-batch gradient descent update for logistic regression with L2 regularization.
+
+    Args:
+        X: Feature matrix of shape (N, D).
+        y: Binary labels of shape (N,).
+        w: Weight vector of shape (D,).
+        b: Bias scalar.
+        lr: Learning rate.
+        l2_lambda: L2 regularization strength.
+
+    Returns:
+        Tuple of (w_new, b_new, loss) where:
+            - w_new: Updated weights of shape (D,).
+            - b_new: Updated bias as a float.
+            - loss: Current step's BCE loss + 0.5 * L2 penalty before update.
+    """
+    n_samples = X.shape[0]
+
+    y_prob = logistic_predict_proba(X, w, b)
+    bce_loss = binary_cross_entropy(y, y_prob, w, l2_lambda)
+
+    dw, db = logistic_gradients(X, y, y_prob, w, l2_lambda)
+    w_new = w - lr * dw
+    b_new = b - lr * db
+
+    return w_new, b_new, bce_loss
 
 # Step 19 - train_logistic_regression (not yet solved)
 # TODO: implement
