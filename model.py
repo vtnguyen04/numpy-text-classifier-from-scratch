@@ -57,7 +57,9 @@ def build_vocabulary(word_counts: dict, max_size: int) -> dict:
         word_counts.items(), key=lambda items: (-items[1], items[0])
     )[:max_size]
 
-    return {word: idx for idx, (word, _) in enumerate(sorted_words)}
+    return {
+        word: idx for idx, (word, _) in enumerate(sorted_words)
+    }
 
 # Step 7 - tokens_to_bow (not yet solved)
 # TODO: implement
