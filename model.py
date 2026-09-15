@@ -128,8 +128,27 @@ def logistic_predict_proba(X: np.ndarray, w: np.ndarray, b: float) -> np.ndarray
     # TODO: Return P(y=1|x) for each row via linear scores and sigmoid
     return sigmoid(X @ w + b)
 
-# Step 15 - binary_cross_entropy (not yet solved)
-# TODO: implement
+# Step 15 - binary_cross_entropy
+import numpy as np
+
+
+def binary_cross_entropy(
+    y_true: np.ndarray, y_prob: np.ndarray, w: np.ndarray, l2_lambda: float
+) -> float:
+    y_true = np.asarray(y_true, dtype=float)
+    y_prob = np.asarray(y_prob, dtype=float)
+    w = np.asarray(w, dtype=float)
+
+    eps = 1e-15
+    y_prob = np.clip(y_prob, eps, 1.0 - eps)
+
+    bce_loss = -np.mean(
+        y_true * np.log(y_prob) + (1.0 - y_true) * np.log(1.0 - y_prob)
+    )
+
+    l2_loss = 0.5 * l2_lambda * np.sum(w**2)
+
+    return float(bce_loss + l2_loss)
 
 # Step 16 - logistic_gradients (not yet solved)
 # TODO: implement
