@@ -306,8 +306,23 @@ def tune_decision_threshold(y_true: np.ndarray, proba: np.ndarray, thresholds: n
 
     return best_threshold, best_f1
 
-# Step 24 - evaluate_predictions (not yet solved)
-# TODO: implement
+# Step 24 - evaluate_predictions
+def evaluate_predictions(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
+    # TODO: Bundle confusion counts and classification metrics into one report dict
+    tp, fp, tn, fn = confusion_counts(y_true, y_pred)
+
+    metrics = metrics_from_counts(tp, fp, tn, fn)
+
+    return {
+        "tp": tp,
+        "fp": fp,
+        "tn": tn,
+        "fn": fn,
+        "precision": metrics["precision"],
+        "recall": metrics["recall"],
+        "f1": metrics["f1"],
+        "accuracy": metrics["accuracy"],
+    }
 
 # Step 25 - vectorize_texts (not yet solved)
 # TODO: implement
