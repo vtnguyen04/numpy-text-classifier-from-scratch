@@ -334,8 +334,29 @@ def vectorize_texts(texts: list, vocab: dict, idf: np.ndarray) -> np.ndarray:
 
     return tfidf
 
-# Step 26 - predict_text (not yet solved)
-# TODO: implement
+# Step 26 - predict_text
+def predict_text(text: str, vocab: dict, idf: np.ndarray, w: np.ndarray, b: float, threshold: float = 0.5) -> int:
+    """Label a single raw message with the fitted classifier.
+
+    Args:
+        text: Raw input string.
+        vocab: Fitted word -> column index map.
+        idf: Fitted IDF vector, shape (V,).
+        w: Logistic weight vector, shape (V,).
+        b: Logistic bias scalar.
+        threshold: Decision threshold for the positive class.
+
+    Returns:
+        Predicted label as int 0 or 1.
+    """
+    # TODO: label a single unseen raw message using fitted model artifacts
+    text_vec = vectorize_texts([text], vocab, idf)
+
+    prob = logistic_predict_proba(text_vec, w, b)
+
+    labels = predict_labels(prob, threshold)
+
+    return labels[0]
 
 # Step 27 - collect_prediction_errors (not yet solved)
 # TODO: implement
